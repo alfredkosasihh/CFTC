@@ -58,7 +58,6 @@ class database():
                 'change_short': str(row[4]),
                 'net_possition': str(row[5])
             })
-        print(tmp_data)
         return{
             'result': '0',
             'result': "",
