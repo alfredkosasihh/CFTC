@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>home</title>
+</head>
+
+<body>
+    <h1 class="text-center text-primary">CFTC REPORT</h1>
+    <div class="w-50 p-3 container">
+        <select class="form-select" aria-label="Default select example">
+            <option selected>Select ...</option>
+            <option value="gold">XAU/GOLD</option>
+            <option value="xag">XAG/Platinum</option>
+            <option value="aud">AUD/Australian Dollar</option>
+            <option value="cad">CAD/Canadian Dollar</option>
+            <option value="gbp">GBP/British Pound Streling</option>
+            <option value="chf">CHF/Swiss Franc</option>
+            <option value="brl">BRL/Brazilian Real</option>
+            <option value="jpy">JPY/Japan Yen</option>
+            <option value="nzd">NZD/New Zealand Dollar</option>
+            <option value="rbl">RBL/Russian Rubel</option>
+            <option value="eur">EUR/EURO</option>
+            <option value="nasdaq_100">Nasdaq 100</option>
+            <option value="snp_100">S&P 100</option>
+        </select>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Long</th>
+                    <th scope="col">Short</th>
+                    <th scope="col">Change Long</th>
+                    <th scope="col">Change Short</th>
+                    <th scope="col">Net</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+<script>
+    $('select').on('change', function () {
+        axios.get('/CFTC', {
+            params: {
+                type: this.value
+            }
+        })
+            .then(function (response) {
+                data = response.data.data
+                $('tbody').empty()
+                for (var i in data) {
+                    $('tbody').append(`
+                        <tr>
+                            <td>${data[i].date}</td>
+                            <td>${data[i].long}</td>
+                            <td>${data[i].short}</td>
+                            <td>${data[i].change_long}</td>
+                            <td>${data[i].change_short}</td>
+                            <td>${data[i].net_possition}</td>
+                        </tr>
+                    `)
+                }
+
+
+
+            });
+    });
+</script>
+
+</html>
