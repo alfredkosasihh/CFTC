@@ -2,9 +2,18 @@ import mysql.connector
 from datetime import date
 from utils.config import host, user, password, table
 
+class initialize():
+    def __init__(self):
+        mydb = mysql.connector.connect(
+            host = host,
+            user = user,
+            password = password,
+        )
+        mycursor = mydb.cursor() 
+        mycursor.execute("CREATE DATABASE "+table+"")
+
 class database():
     def __init__(self):
-        
         self.mydb = mysql.connector.connect(
             host = host,
             user = user,
@@ -26,9 +35,6 @@ class database():
     
     def store(self, types, data=''):
         mycursor = self.mydb.cursor()
-        print(types, data[0])
-        # sql = "INSERT INTO {types} (date, long_val, short_val, change_long, change_short, net_possition ) VALUES (%s,%s,%s,%s,%s,%s)"%(data[0], data[1], data[2], data[3], data[4], data[5])
-        # val = ()
         mycursor.execute("""
                 INSERT INTO """+types+"""  
                 (date, long_val, short_val, change_long, change_short, net_possition ) 
@@ -41,7 +47,7 @@ class database():
         tmp_data = []
         
         mycursor = self.mydb.cursor()
-        mycursor.execute("select * from "+code+"")
+        mycursor.execute("select * from "+code+" limit 12")
 
         for row in mycursor:
             tmp_data.append({
@@ -58,5 +64,3 @@ class database():
             'result': "",
             'data': tmp_data
         }
-# test = db()
-# test.create()
