@@ -48,7 +48,7 @@ class database():
         tmp_data = []
         
         mycursor = self.mydb.cursor()
-        mycursor.execute("select * from "+code+" limit 12")
+        mycursor.execute("select * from "+code+" ORDER BY date DESC limit 12")
 
         for row in mycursor:
             tmp_data.append({
