@@ -15,7 +15,9 @@ type = {
             'jpy':'CFTC/097741_F_L_ALL',
             'nzd':'CFTC/112741_F_L_ALL',
             'rub':'CFTC/089741_F_L_ALL',
-            'eur':'CFTC/099741_F_L_ALL'}   
+            'eur':'CFTC/099741_F_L_ALL',
+            'usd':'CFTC/098662_FO_L_ALL'
+            }   
 
 def init():
     initialize()
